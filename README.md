@@ -10,3 +10,9 @@ https://github.com/horike37/serverless-step-functions
 $ make
 $ sls deploy
 ```
+
+### Invoke
+
+```
+$ sls invoke stepf --name hellostepfunc
+```
