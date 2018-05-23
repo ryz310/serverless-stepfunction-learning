@@ -1,2 +1,8 @@
 # serverless-stepfunction-learning
-Learning serverless framework with step function
+
+## Deployment
+
+```
+$ make
+$ sls deploy
+```
