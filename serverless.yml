@@ -27,12 +27,26 @@ stepFunctions:
             method: GET
       definition:
         Comment: "A Hello World example of the Amazon States Language using an AWS Lambda Function"
-        StartAt: Hello
+        StartAt: FirstState
         States:
-          Hello:
+          FirstState:
             Type: Task
             Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-hello
+            Next: ChoiceState
+          ChoiceState:
+            Type: Choice
+            Choices:
+            - Variable: "$.message"
+              StringEquals: "Go Serverless v1.0! Your function executed successfully!"
+              Next: TrueState
+            Default: FalseState
+          TrueState:
+            Type: Task
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-world
             End: true
+          FalseState:
+            Type: Fail
+            Cause: "No Matches!"
 
 plugins:
   - serverless-step-functions
